@@ -17,13 +17,13 @@ namespace JasonTestImage
             var lines = new List<Line>()
             {
                 // Vertical Main Line
-                new VerticalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop), scaleHeight),
+                new VerticalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop), scaleHeight) {Colour = Color.Black},
                 
                 // Top Horizontal
-                new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop), 30),
+                new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop), 30) {Colour = Color.Black},
                 
                 // Bottom Horizontal
-                new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + scaleHeight), 30),
+                new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + scaleHeight), 30) {Colour = Color.Black},
             };
             
             var totalPoints = 10;
@@ -34,7 +34,7 @@ namespace JasonTestImage
             {
                 if (i != 0 && i != totalPoints)
                 {
-                    var line = new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + distanceBetweenPoints * i), 20);
+                    var line = new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + distanceBetweenPoints * i), 20) {Colour = Color.Black};
                     line.Draw(bmp);
                 }
 
@@ -68,8 +68,7 @@ namespace JasonTestImage
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            g.DrawString(text, new Font("Tahoma", 10), Brushes.Red, rectf);
-
+            g.DrawString(text, new Font("Tahoma", 10), Brushes.Black, rectf);
             g.Flush();
 
             return bmp;
@@ -78,6 +77,8 @@ namespace JasonTestImage
 
     public class Line
     {
+        public Color Colour = Color.Black;
+
         protected Coordinate StartPoint { get; set; }
         protected Coordinate EndPoint { get; set; }
 
@@ -89,7 +90,7 @@ namespace JasonTestImage
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
-                graphics.DrawLine(new Pen(Color.Red, 2), StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y);
+                graphics.DrawLine(new Pen(Colour, 1), StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y);
             }
         }
     }
