@@ -30,13 +30,15 @@ namespace JasonTestImage
 
             var distanceBetweenPoints = scaleHeight / totalPoints;
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i <= totalPoints; i++)
             {
-                var line = new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + distanceBetweenPoints * i), 20);
+                if (i != 0 && i != totalPoints)
+                {
+                    var line = new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + distanceBetweenPoints * i), 20);
+                    line.Draw(bmp);
+                }
 
                 bmp = AddText(bmp, new Coordinate(scaleDistanceFromLeft + 35, scaleDistanceFromTop + distanceBetweenPoints * i - 10), $"{i}°");
-
-                line.Draw(bmp);
             }
 
             lines.ForEach(l=>l.Draw(bmp));
@@ -59,7 +61,7 @@ namespace JasonTestImage
 
         private static Bitmap AddText(Bitmap bmp, Coordinate topLeftStart, string text)
         {
-            RectangleF rectf = new RectangleF(topLeftStart.X, topLeftStart.Y, 20, 20);
+            RectangleF rectf = new RectangleF(topLeftStart.X, topLeftStart.Y, 30, 20);
 
             Graphics g = Graphics.FromImage(bmp);
 
