@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 
 namespace JasonTestImage
@@ -14,7 +13,6 @@ namespace JasonTestImage
             var scaleDistanceFromTop = 10;
             var scaleDistanceFromLeft = 10;
 
-
             var lines = new List<Line>()
             {
                 // Vertical Main Line
@@ -26,6 +24,15 @@ namespace JasonTestImage
                 // Bottom Horizontal
                 new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + scaleHeight), 30),
             };
+            
+            var totalPoints = 10;
+            var distanceBetweenPoints = scaleHeight / totalPoints;
+            
+            for (int i = 0; i < 10; i++)
+            {
+                var line = new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + distanceBetweenPoints * i), 20);
+                line.Draw(bmp);
+            }
 
             lines.ForEach(l=>l.Draw(bmp));
 
