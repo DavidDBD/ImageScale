@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace JasonTestImage
 {
@@ -11,7 +12,7 @@ namespace JasonTestImage
 
             var scaleHeight = bmp.Height - 20;
             var scaleDistanceFromTop = 10;
-            var scaleDistanceFromLeft = 10;
+            var scaleDistanceFromLeft = bmp.Width - 80;
 
             var lines = new List<Line>()
             {
@@ -26,11 +27,15 @@ namespace JasonTestImage
             };
             
             var totalPoints = 10;
+
             var distanceBetweenPoints = scaleHeight / totalPoints;
             
             for (int i = 0; i < 10; i++)
             {
                 var line = new HorizontalLine(new Coordinate(scaleDistanceFromLeft, scaleDistanceFromTop + distanceBetweenPoints * i), 20);
+
+                bmp = AddText(bmp, new Coordinate(scaleDistanceFromLeft + 35, scaleDistanceFromTop + distanceBetweenPoints * i - 10), $"{i}°");
+
                 line.Draw(bmp);
             }
 
@@ -52,6 +57,21 @@ namespace JasonTestImage
             return bmp;
         }
 
+        private static Bitmap AddText(Bitmap bmp, Coordinate topLeftStart, string text)
+        {
+            RectangleF rectf = new RectangleF(topLeftStart.X, topLeftStart.Y, 20, 20);
+
+            Graphics g = Graphics.FromImage(bmp);
+
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.DrawString(text, new Font("Tahoma", 10), Brushes.Red, rectf);
+
+            g.Flush();
+
+            return bmp;
+        }
     }
 
     public class Line
