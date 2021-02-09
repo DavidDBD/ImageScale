@@ -83,6 +83,10 @@ namespace JasonTestImage
         {
             using (var graphics = Graphics.FromImage(bmp))
             {
+                graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
                 graphics.DrawLine(new Pen(Color.Red, 2), StartPoint.X, StartPoint.Y, EndPoint.X, EndPoint.Y);
             }
         }
